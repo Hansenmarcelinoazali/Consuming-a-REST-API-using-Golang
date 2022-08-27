@@ -13,8 +13,8 @@ func GetDataUrlorRedis(c echo.Context) error {
 	urlparam := "https://dummyjson.com/products?limit=100&skip=0"
 
 	//param
-	limit := c.Param("limit")
-	skip := c.Param("skip")
+	limit := c.QueryParam("limit")
+	skip := c.QueryParam("skip")
 
 	// var err error
 	tokenKey := c.Request().Header.Get("X-App-Key")

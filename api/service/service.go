@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
@@ -55,12 +56,15 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 
 	}
 
-	// limits, _ := strconv.Atoi(limit)
-	// skips, _ := strconv.Atoi(skip)
-	// offset := skips * limits
+	limits, _ := strconv.Atoi(limit)
+	skips, _ := strconv.Atoi(skip)
+	offset := skips + limits
+	fmt.Println(limits)
+	fmt.Println(skips)
 
-	// response := resultGetRedis.Data[skips:offset]
-	// resultGetRedis.Data = response
+	response := resultGetRedis.Data[skips:offset]
+	resultGetRedis.Data = response
+	fmt.Println(response)
 
 	return &resultGetRedis, nil
 }
