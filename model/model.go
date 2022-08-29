@@ -1,5 +1,34 @@
 package model
 
+//usecase 1
+
+type Login struct{
+	EmailorUsername string `json:"email/username" form:"email/username" query:"email/username"`
+	Password string `json:"password" form:"password" query:"password"`
+}
+
+type ResponseToken struct{
+	TokenAccess string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}
+
+type Response struct {
+	StatusCode   int         `json:"statusCode,omitempty"`
+	Message      interface{} `json:"message,omitempty"`
+	Token        interface{} `json:"token_sekarang,omitempty"`
+	RefreshToken interface{} `json:"token_refresh,omitempty"`
+}
+
+type Users struct {
+	ID           string `json:"id"`
+	Username     string `json:"username"`
+	Email        string `json:"email"`
+	Password     string `json:"password"`
+	Name         string `json:"name"`
+	IsLogin      bool   `json:"is_login"`
+	RefreshToken string `json:"refresh_token"`
+}
+
 type ResponseProduct struct {
 	Products []struct {
 		ID                 int      `json:"id"`
@@ -26,4 +55,6 @@ type Data struct {
 	Price int    `json:"price"`
 	Stock int    `json:"stock"`
 }
+
+
 

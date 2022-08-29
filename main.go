@@ -1,5 +1,12 @@
 package main
 
+import (
+	// "ECHO-GORM/db"
+	"external_api/db"
+	"external_api/route"
+	// "github.com/Lionparcel/common-backend/sql/db"
+)
+
 // func main() {
 // 	url := "https://dummyjson.com/products?limit=100&skip=0"
 // 	response, err := http.Get(url)
@@ -23,12 +30,8 @@ package main
 // 	fmt.Println(responseData)
 // }
 
-import (
-	"external_api/route"
-)
-
 func main() {
-	// db.Init()
+	db.Init()
 	e := route.Init()
 
 	e.Logger.Fatal(e.Start(":1323"))

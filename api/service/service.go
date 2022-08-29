@@ -1,6 +1,7 @@
 package service
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"external_api/api/repository"
 	"external_api/model"
@@ -11,8 +12,99 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
+//usecase 1
+//Is_login
+func ServiceIsLogin(email, username, password string) (string, error) {
+
+	result, err := repository.RepositoryIsLogin(email, username, password)
+	if err != nil {
+		return " ", err
+	}
+	if result.IsLogin == true {
+		return "Sudah Login", nil
+	}
+	return " ", nil
+
+}
+
+func ServiceLoginUser(email, username, password string) (*model.Users, error) {
+
+	result, err := repository.RepositoryLogin(email, username, password)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
+
+}
+
+//generate token access token
+func GenerateAccessToken(email string) (string, error) {
+
+	hash, err := bcrypt.GenerateFromPassword([]byte(email), bcrypt.DefaultCost)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return base64.StdEncoding.EncodeToString(hash[0:20]), err
+}
+
+//generate refreshtoken
+func GenerateRefreshToken(email string) (string, error) {
+
+	hash, err := bcrypt.GenerateFromPassword([]byte(email), bcrypt.DefaultCost)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return base64.StdEncoding.EncodeToString(hash[0:20]), err
+}
+
+//mengubah status login menjadi true saat login
+func TurnToTrue(email, username, password, refreshToken string) error {
+	// token, _ := GenerateRefreshToken(email)
+
+	err := repository.RepoUpdateToTrue(email, username, password, refreshToken)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+//set redis
+func ServiceSetRedis(tokenAccess, identity string) error {
+
+	repository.SetRedis(tokenAccess, string(identity))
+	return nil
+}
+
+//endpoint checkhealtz
+func ServiceCheckHealth(accesstoken string) (string, error) {
+
+	responseCheckHealth, err := repository.RepoCheckHealth(accesstoken)
+	if err != nil {
+		return " ", err
+	}
+	return responseCheckHealth, nil
+}
+
+//service logout
+func ServiceLogout(tokenAccess, refreshToken string) error {
+
+	errDb := repository.RepoLogoutDb(refreshToken)
+	if errDb != nil {
+		return errDb
+	}
+
+	errRedis := repository.RepoLogoutRedis(tokenAccess)
+	if errRedis != nil {
+		return errRedis
+	}
+	return nil
+}
+
+//usecase 2
 func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 
 	var res string
@@ -57,8 +149,8 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 	limits, _ := strconv.Atoi(limit)
 	skips, _ := strconv.Atoi(skip)
 	offset := skips + limits
-	fmt.Println(limits)
-	fmt.Println(skips)
+	// fmt.Println(limits)
+	// fmt.Println(skips)
 
 	//pemilahan berdasarkan skip dan limit
 	response := resultGetRedis.Data[skips:offset]
