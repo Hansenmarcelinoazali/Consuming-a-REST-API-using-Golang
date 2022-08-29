@@ -14,7 +14,7 @@ func SetRedis(url string, productdata string) {
 
 	key := url
 	data := productdata
-	ttl := time.Duration(15) * time.Second
+	ttl := time.Duration(600) * time.Second
 
 	// store data using SET command
 	op1 := rdb.Set(key, data, ttl)
