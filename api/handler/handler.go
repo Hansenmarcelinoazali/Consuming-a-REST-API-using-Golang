@@ -23,21 +23,14 @@ func GetDataUrlorRedis(c echo.Context) error {
 	keyS := "TRAINING"
 	secret := "RAYA.OJT"
 
-	if tokenKey != keyS {
-		return c.JSON(http.StatusUnauthorized, " key salah ")
-	}
-	if tokenSecret != secret {
-		return c.JSON(http.StatusUnauthorized, " secret salah")
+	if tokenKey != keyS || tokenSecret != secret {
+		return c.JSON(http.StatusUnauthorized, " key  atau secret salah ")
 	}
 
 	result, errorr := service.GetRedisData(urlparam, limit, skip)
 	if errorr != nil {
-		// return errorr
-		results, err := service.ServiceGetUrl(urlparam)
-		if err != nil {
-			return err
-		}
-		return c.JSONPretty(http.StatusOK, results, " ")
+		return errorr
+	
 	}
 	return c.JSONPretty(http.StatusOK, result, "  ")
 }

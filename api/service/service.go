@@ -2,6 +2,7 @@ package service
 
 import (
 	"encoding/json"
+	"external_api/api/repository"
 	"external_api/model"
 	"external_api/redis"
 	"fmt"
@@ -16,9 +17,9 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 
 	var res string
 	rdb := redis.NewRedisClient()
-	// fmt.Println("redis client initialized")
 
 	op2 := rdb.Get(url)
+	//jika terjadi error kaan masuke ke service get data dan set
 	err := op2.Err()
 	if err != nil {
 		fmt.Println("INI MASUK ERROR IF 1")
@@ -26,8 +27,7 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 		if err != nil {
 			return nil, err
 		}
-		// fmt.Println(res)
-	} else {
+	} else { //jika datanya ada maka akan masuk  dan dilanjutkan untuk dipilah sesuai requirment
 		fmt.Println("INI MASUK BUKAN ERROR")
 		res, err = op2.Result()
 		if err != nil {
@@ -35,14 +35,11 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 			fmt.Printf("unable to GET data. error: %av", err)
 			return nil, nil
 		}
-
-		// log.Println("get operation success. result:", res)
 	}
-	// fmt.Println("================", res)
 
+	//karena data yang masuk dalam bentuk string json maka di ubah dlu ke struct dengan unmarshal
 	var unmarsStruct model.ResponseProduct
 	json.Unmarshal([]byte(res), &unmarsStruct)
-	// fmt.Println(unmars)
 
 	var resultGetRedis model.ResponseGetUrl
 
@@ -56,23 +53,27 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 
 	}
 
+	//pagination
 	limits, _ := strconv.Atoi(limit)
 	skips, _ := strconv.Atoi(skip)
 	offset := skips + limits
 	fmt.Println(limits)
 	fmt.Println(skips)
 
+	//pemilahan berdasarkan skip dan limit
 	response := resultGetRedis.Data[skips:offset]
 	resultGetRedis.Data = response
 	fmt.Println(response)
 
+	//return sebagai hasil
 	return &resultGetRedis, nil
 }
 
+/* get url dan langsung set redis */
 func ServiceGetUrl(url string) (string, error) {
 	response, err := http.Get(url)
 	if err != nil {
-		// fmt.Print(err.Error())
+
 		os.Exit(1)
 	}
 
@@ -84,21 +85,9 @@ func ServiceGetUrl(url string) (string, error) {
 	var ResponseObject model.ResponseProduct
 	json.Unmarshal(responseData, &ResponseObject)
 
-	// var ResponseGetUrl model.ResponseGetUrl
-	// for _, v := range ResponseObject.Products {
-	// 	ResponseGetUrl.Data = append(ResponseGetUrl.Data, model.Data{
-	// 		ID:    v.ID,
-	// 		Title: v.Title,
-	// 		Price: v.Price,
-	// 		Stock: v.Stock,
-	// 	})
-	// }
-
 	marshaltoRedis, _ := json.Marshal(ResponseObject)
-	// fmt.Println(marshaltoRedis)
-	// fmt.Println(url)
 
-	redis.SetRedis(url, string(marshaltoRedis))
+	repository.SetRedis(url, string(marshaltoRedis))
 
 	return string(responseData), nil
 }
