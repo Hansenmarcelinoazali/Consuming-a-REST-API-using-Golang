@@ -19,7 +19,7 @@ func Init() *echo.Echo {
 
 	e.GET("/api/v1/auth/health", handler.HandlerCheckHealth)
 
-	e.DELETE("/api/v1/auth/logout:key", handler.HandlerLogout)
+	e.DELETE("/api/v1/auth/logout", handler.HandlerLogout)
 
 	//usecase 2
 	e.GET("/api/v1/external/dummyjson/products", handler.GetDataUrlorRedis)

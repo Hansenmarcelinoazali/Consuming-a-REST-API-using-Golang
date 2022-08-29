@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"external_api/api/repository"
 	"external_api/model"
 	"external_api/redis"
@@ -10,7 +11,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"os"
 	"strconv"
 
 	"golang.org/x/crypto/bcrypt"
@@ -163,10 +163,13 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 
 /* get url dan langsung set redis */
 func ServiceGetUrl(url string) (string, error) {
-	response, err := http.Get(url)
-	if err != nil {
-
-		os.Exit(1)
+	response, _ := http.Get(url)
+	if response.StatusCode == 500 {
+		return " ", errors.New(" Internal Server Error")
+	} else if response.StatusCode == 400 {
+		return " ", errors.New(" Bad Request")
+	} else if response.StatusCode == 504 {
+		return " ", errors.New(" Time Out")
 	}
 
 	responseData, err := ioutil.ReadAll(response.Body)

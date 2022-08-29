@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "347daaa9-29de-4ace-89c9-2c3888c6640f",
+		"name": "Challange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12656004"
+	},
+	"item": [
+		{
+			"name": "Get Home",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-App-Key",
+						"value": "TRAINING",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-APP-Secret",
+						"value": "RAYA.OJT",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:1323/",
+					"host": [
+						"localhost"
+					],
+					"port": "1323",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Token",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-App-Key",
+						"value": "TRAINING",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-App-Secret",
+						"value": "RAYA.OJT",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email/username\":\"hansenmarcelino54@gmail.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:1323/api/v1/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "1323",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Health",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-App-Key",
+						"value": "TRAINING",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-App-Secret",
+						"value": "RAYA.OJT",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:1323/api/v1/auth/health",
+					"host": [
+						"localhost"
+					],
+					"port": "1323",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "X-App-Key",
+						"value": "TRAINING ",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "X-App-Secret",
+						"value": "RAYA.OJT",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Refresh-Token",
+						"value": "JDJhJDEwJDdQbVpTRzI4WTlwT1M=",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:1323/api/v1/auth/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "1323",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET DATA URL OR REDIS",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-App-Key",
+						"value": "TRAINING",
+						"type": "text"
+					},
+					{
+						"key": "X-App-Secret",
+						"value": "RAYA.OJT",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:1323/api/v1/external/dummyjson/products?limit=100&skip=0",
+					"host": [
+						"localhost"
+					],
+					"port": "1323",
+					"path": [
+						"api",
+						"v1",
+						"external",
+						"dummyjson",
+						"products"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "100"
+						},
+						{
+							"key": "skip",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

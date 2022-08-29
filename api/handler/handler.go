@@ -131,7 +131,8 @@ func HandlerLogout(c echo.Context) error {
 //usecase 2
 func GetDataUrlorRedis(c echo.Context) error {
 	// url := "https://dummyjson.com/products?limit=100&skip=0" ////example
-	urlparam := "https://dummyjson.com/products?limit=100&skip=0"
+	urlparam := "https://dummyjson.com/products?limit=100&skip=0" //200 Ok => ada data
+	// urlparam := "https://dummyjson.com/products?limit=-1" //500 => internal server error
 
 	//param
 	limit := c.QueryParam("limit")
@@ -144,7 +145,6 @@ func GetDataUrlorRedis(c echo.Context) error {
 		return errorr
 
 	}
-	return c.JSON(http.StatusUnauthorized, result)
-	// return c.JSONPretty(http.StatusOK, result, "  ")
+	return c.JSON(http.StatusOK, result)
 
 }
