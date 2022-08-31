@@ -61,27 +61,47 @@ type Data struct {
 }
 
 //usecase 4
-// type ResponseMessage struct {
-// 	MessageResponse []ResponseInputData `json:"Response"`
-// }
+type ResponseMessage struct {
+	MessageResponse []ResponseInputData `json:"Response"`
+}
 
-// type ResponseInputData struct {
-// 	Message         string       `json:"message"`
-// 	NumOfDataStored int          `json:"num_of_data_stored"`
-// 	DataStored      []DataStored `json:"data_stored"`
-// }
+type ResponseInputData struct {
+	Message         string    `json:"message"`
+	NumOfDataStored int       `json:"num_of_data_stored"`
+	DataStored      []Product `json:"data_stored"`
+}
 
 type Product struct {
-	// Datatypes       string    `json:"data_types"`
-	ID              string    `json:"id"`
+	ID              int    `json:"id"`
 	ProductsourceId string    `json:"productsource_id"`
 	Title           string    `json:"title"`
 	Price           int       `json:"price"`
 	Stock           int       `json:"stock"`
 	CreatedAt       time.Time `json:"created_at"`
+	CreatedBy       string    `json:"created_by"`
+	ProductSource   string    `json:"product_source"`
+	Rate            float64   `json:"rating"`
+}
+type Products struct {
+	// ID              string    `json:"id"`
+	// ProductsourceId string    `json:"productsource_id"`
+	// Title           string    `json:"title"`
+	// Price           int       `json:"price"`
+	// Stock           int       `json:"stock"`
+	// CreatedAt       time.Time `json:"created_at"`
+	ID              int    `json:"id"`
+	ProductsourceId string    `json:"productsource_id"`
+	Title           string    `json:"title"`
+	Price           int       `json:"price"`
+	Stock           int       `json:"stock"`
+	CreatedAt       time.Time `json:"created_at"`
+	CreatedBy       string    `json:"created_by"`
+	ProductSource   string    `json:"product_source"`
+	Rate            float64   `json:"rating"`
 }
 
 type RequestProduct struct {
-	Type string      `json:"Type"`
-	Data interface{} `json:"data"`
+	// Type  string     `json:"Type"`
+	Data  Product    `json:"data"`
+	Datas []Products `json:"datas"`
 }
