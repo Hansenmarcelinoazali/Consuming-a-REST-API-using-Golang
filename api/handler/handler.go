@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"external_api/api/service"
 	"external_api/model"
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -15,10 +14,6 @@ import (
 
 //usecase 1
 func HandlerUserLogin(c echo.Context) error {
-
-	// email := c.QueryParam("email")
-	// password := c.QueryParam("password")
-	// username := c.QueryParam("username")
 
 	u := new(model.Login)
 	if err := c.Bind(u); err != nil {
@@ -60,37 +55,7 @@ func HandlerUserLogin(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	//validasi is login
-	// isLogin, IsError := service.ServiceIsLogin(email, username, password)
-	// if IsError != nil {
-	// 	return IsError
-	// } else if isLogin == "Sudah Login" {
-	// 	return c.JSON(http.StatusAccepted, isLogin)
-	// }
 
-	// identity, err := service.ServiceLoginUser(email, username, password)
-	// if err != nil {
-	// 	return err
-	// }
-	// var responseToken model.ResponseToken
-
-	// tokenAccess, err := service.GenerateAccessToken(email)
-	// if err != nil {
-	// 	return nil
-	// }
-
-	// TokenRefresh, err := service.GenerateRefreshToken(email)
-	// if err != nil {
-	// 	return err
-	// }
-
-	// responseToken.RefreshToken = TokenRefresh
-	// responseToken.TokenAccess = tokenAccess
-
-	// err = service.TurnToTrue(email, username, password, TokenRefresh)
-	// if err != nil {
-	// 	return err
-	// }
 	marshaljson, err := json.Marshal(identity)
 	if err != nil {
 		return err
@@ -109,7 +74,6 @@ func HandlerCheckHealth(c echo.Context) error {
 
 	tokenParamsAuth := strings.Split(accessToken, " ")
 	responseHealth, err := service.ServiceCheckHealth(tokenParamsAuth[1])
-	fmt.Println("ini handler", responseHealth)
 
 	if err != nil {
 		return nil
@@ -120,6 +84,7 @@ func HandlerCheckHealth(c echo.Context) error {
 
 func HandlerLogout(c echo.Context) error {
 	refreshToken := c.Request().Header.Get("Refresh-Token")
+	// fmt.Println("refresh token logout", refreshToken)
 	tokenAccess := c.Request().Header.Get("Authorization")
 	tokenAccessaramAuthLogout := strings.Split(tokenAccess, " ")
 
@@ -131,8 +96,7 @@ func HandlerLogout(c echo.Context) error {
 //usecase 2
 func GetDataUrlorRedis(c echo.Context) error {
 
-	urlparam := "https://dummyjson.com/products?limit=100&skip=0" 
-
+	urlparam := "https://dummyjson.com/products?limit=100&skip=0"
 
 	//param
 	limit := c.QueryParam("limit")

@@ -114,13 +114,11 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 	//jika terjadi error kaan masuke ke service get data dan set
 	err := op2.Err()
 	if err != nil {
-		fmt.Println("INI MASUK ERROR IF 1")
 		res, err = ServiceGetUrl(url)
 		if err != nil {
 			return nil, err
 		}
 	} else { //jika datanya ada maka akan masuk  dan dilanjutkan untuk dipilah sesuai requirment
-		fmt.Println("INI MASUK BUKAN ERROR")
 		res, err = op2.Result()
 		if err != nil {
 
@@ -149,13 +147,9 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 	limits, _ := strconv.Atoi(limit)
 	skips, _ := strconv.Atoi(skip)
 	offset := skips + limits
-	// fmt.Println(limits)
-	// fmt.Println(skips)
 
-	//pemilahan berdasarkan skip dan limit
 	response := resultGetRedis.Data[skips:offset]
 	resultGetRedis.Data = response
-	fmt.Println(response)
 
 	//return sebagai hasil
 	return &resultGetRedis, nil

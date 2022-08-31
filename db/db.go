@@ -21,8 +21,6 @@ func Init() {
 		fmt.Println(err)
 		panic("DB Connection Error")
 	}
-	// db.AutoMigrate(&model.User{})
-
 }
 
 func DbManager() *gorm.DB {

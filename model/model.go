@@ -1,14 +1,18 @@
 package model
 
+import (
+	"time"
+)
+
 //usecase 1
 
-type Login struct{
+type Login struct {
 	EmailorUsername string `json:"email/username" form:"email/username" query:"email/username"`
-	Password string `json:"password" form:"password" query:"password"`
+	Password        string `json:"password" form:"password" query:"password"`
 }
 
-type ResponseToken struct{
-	TokenAccess string `json:"access_token"`
+type ResponseToken struct {
+	TokenAccess  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
 }
 
@@ -56,5 +60,28 @@ type Data struct {
 	Stock int    `json:"stock"`
 }
 
+//usecase 4
+// type ResponseMessage struct {
+// 	MessageResponse []ResponseInputData `json:"Response"`
+// }
 
+// type ResponseInputData struct {
+// 	Message         string       `json:"message"`
+// 	NumOfDataStored int          `json:"num_of_data_stored"`
+// 	DataStored      []DataStored `json:"data_stored"`
+// }
 
+type Product struct {
+	// Datatypes       string    `json:"data_types"`
+	ID              string    `json:"id"`
+	ProductsourceId string    `json:"productsource_id"`
+	Title           string    `json:"title"`
+	Price           int       `json:"price"`
+	Stock           int       `json:"stock"`
+	CreatedAt       time.Time `json:"created_at"`
+}
+
+type RequestProduct struct {
+	Type string      `json:"Type"`
+	Data interface{} `json:"data"`
+}
