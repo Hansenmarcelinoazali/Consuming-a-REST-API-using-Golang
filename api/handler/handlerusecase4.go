@@ -4,18 +4,20 @@ import (
 	"errors"
 	"external_api/api/service"
 	"external_api/model"
+	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
 )
 
 func HandlerSaveToDB(c echo.Context) error {
-	refreshToken := c.Request().Header.Get("Refresh-Token")
+	refreshToken := c.Request().Header.Get("Id-User")
 	inputData := new(model.RequestProduct)
 	if err := c.Bind(inputData); err != nil {
 		return err
 	}
 	if inputData.Datas == nil {
+		fmt.Println("XXXXX", &inputData.Data)
 		// marshalinput, err := json.Marshal(inputData.Data)
 		// if err != nil {
 		// 	return err
@@ -37,10 +39,26 @@ func HandlerSaveToDB(c echo.Context) error {
 	}
 
 	data, err := service.ServiceInputDatas(inputData, refreshToken)
+	fmt.Println("INI DATAS HANDLER", inputData.Datas)
 	if err != nil {
 		return err
 	}
 
 	return c.JSON(http.StatusOK, data)
 
+}
+
+func GetProductFromDb(c echo.Context) error {
+
+	filter := c.QueryParam("identity")
+	limit := c.QueryParam("limit")
+	skip := c.QueryParam("skip")
+
+	result, err := service.ServiceGetDatafromDb(filter, limit, skip)
+	if err != nil {
+		return err
+	}
+	
+
+	return c.JSON(http.StatusOK, result)
 }

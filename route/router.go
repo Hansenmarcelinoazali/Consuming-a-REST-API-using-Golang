@@ -24,6 +24,8 @@ func Init() *echo.Echo {
 
 	e.GET("/api/v1/external/dummyjson/products", handler.GetDataUrlorRedis) //usecase 2
 
+	e.GET("/api/v1/products",handler.GetProductFromDb)
+
 	e.POST("/api/v1/products", handler.HandlerSaveToDB)
 
 	e.DELETE("/api/v1/auth/logout", handler.HandlerLogout) //usecase 1

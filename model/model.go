@@ -71,9 +71,15 @@ type ResponseInputData struct {
 	DataStored      []Product `json:"data_stored"`
 }
 
+type ResponseInputDataSingle struct {
+	Message         string             `json:"message"`
+	NumOfDataStored int                `json:"num_of_data_stored"`
+	DataStored      []ProductrResponse `json:"data_stored"`
+}
+
 type Product struct {
-	ID              int    `json:"id"`
-	ProductsourceId string    `json:"productsource_id"`
+	ID              string
+	ProductsourceId int       `json:"id,"`
 	Title           string    `json:"title"`
 	Price           int       `json:"price"`
 	Stock           int       `json:"stock"`
@@ -82,15 +88,10 @@ type Product struct {
 	ProductSource   string    `json:"product_source"`
 	Rate            float64   `json:"rating"`
 }
+
 type Products struct {
-	// ID              string    `json:"id"`
-	// ProductsourceId string    `json:"productsource_id"`
-	// Title           string    `json:"title"`
-	// Price           int       `json:"price"`
-	// Stock           int       `json:"stock"`
-	// CreatedAt       time.Time `json:"created_at"`
-	ID              int    `json:"id"`
-	ProductsourceId string    `json:"productsource_id"`
+	ID              string
+	ProductsourceId int       `json:"id"`
 	Title           string    `json:"title"`
 	Price           int       `json:"price"`
 	Stock           int       `json:"stock"`
@@ -98,6 +99,26 @@ type Products struct {
 	CreatedBy       string    `json:"created_by"`
 	ProductSource   string    `json:"product_source"`
 	Rate            float64   `json:"rating"`
+}
+
+type ResponseInputDataDb struct {
+	Message         string             `json:"message"`
+	NumOfDataStored int                `json:"num_of_data_stored"`
+	DataStored      []ProductrResponse `json:"data_stored"`
+}
+
+type ProductrResponse struct {
+	ProductsourceId int     `json:"id"`
+	Title           string  `json:"title"`
+	Price           int     `json:"price"`
+	Stock           int     `json:"stock"`
+	Rate            float64 `json:"rating"`
+}
+
+type ResponseInputDataS struct {
+	Message         string     `json:"message"`
+	NumOfDataStored int        `json:"num_of_data_stored"`
+	DataStored      []Products `json:"data_stored"`
 }
 
 type RequestProduct struct {
