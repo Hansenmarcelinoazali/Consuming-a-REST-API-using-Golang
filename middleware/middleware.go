@@ -31,7 +31,7 @@ func MiddlewareIslogin(next echo.HandlerFunc) echo.HandlerFunc {
 
 		status, err := servicemiddleware.ServiceMiddlewareIsLogin(refreshToken)
 		if err != nil {
-			return err
+			return c.JSON(http.StatusUnauthorized, "anda belum login")
 		}
 		if status == "sudah login" {
 			return next(c)
