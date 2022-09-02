@@ -5,7 +5,6 @@ import (
 )
 
 //usecase 1
-
 type Login struct {
 	EmailorUsername string `json:"email/username" form:"email/username" query:"email/username"`
 	Password        string `json:"password" form:"password" query:"password"`
@@ -122,7 +121,6 @@ type ResponseInputDataS struct {
 }
 
 type RequestProduct struct {
-	// Type  string     `json:"Type"`
-	Data  Product    `json:"data"`
-	Datas []Products `json:"datas"`
+	Data  Product    `json:"product"`
+	Datas []Products `json:"products"`
 }

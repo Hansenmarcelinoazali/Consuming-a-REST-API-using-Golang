@@ -52,9 +52,10 @@ func RepoCreateProducts(data *model.RequestProduct, refresh_token string) (*[]mo
 	// 		tx.Rollback()
 	// 	}
 	// }()
-	if err := tx.Error; err != nil {
-		return nil, err
-	}
+
+	// if err := tx.Error; err != nil {
+	// 	return nil, err
+	// }
 
 	for _, v := range data.Datas {
 		fmt.Println("INI REPO", v)

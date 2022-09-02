@@ -48,7 +48,7 @@ func ServiceInputDatas(bodys *model.RequestProduct, refreshToken string) (*model
 	// }
 	res, err := repository.RepoCreateProducts(bodys, refreshToken)
 
-	fmt.Println("+++++++++++++++++++++++++++++++++++++", bodys)
+	// fmt.Println("+++++++++++++++++++++++++++++++++++++", bodys)
 	fmt.Println("service = = =", bodys)
 	if err != nil {
 		fmt.Println("ini error service", err)
