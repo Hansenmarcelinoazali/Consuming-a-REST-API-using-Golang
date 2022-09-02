@@ -18,16 +18,7 @@ func HandlerSaveToDB(c echo.Context) error {
 	}
 	if inputData.Datas == nil {
 		fmt.Println("XXXXX", &inputData.Data)
-		// marshalinput, err := json.Marshal(inputData.Data)
-		// if err != nil {
-		// 	return err
-		// }
 
-		// unmarInputData := model.Product{}
-		// errUnmars := json.Unmarshal(marshalinput, &unmarInputData)
-		// if errUnmars != nil {
-		// 	return errUnmars
-		// }
 
 		data, err := service.ServiceSavetoDb(&inputData.Data, refreshToken)
 		if err != nil {

@@ -13,7 +13,6 @@ import (
 )
 
 func RepoCreateProduct(data *model.Product, refresh_token string) error {
-	// fmt.Println("@@@@@@@@@@@@", data.CreatedBy)
 	db := db.DbManager()
 	tx := db.Begin()
 	defer func() {
@@ -25,10 +24,9 @@ func RepoCreateProduct(data *model.Product, refresh_token string) error {
 	if err := tx.Error; err != nil {
 		return err
 	}
-	// integer, _ := strconv.Atoi(data.ID)
 	if err := tx.Create(&model.Product{
 		ID:              uuid.NewString(),
-		ProductsourceId: data.ProductsourceId, //
+		ProductsourceId: data.ProductsourceId, 
 		Title:           data.Title,
 		Price:           data.Price,
 		Stock:           data.Stock,
@@ -47,15 +45,6 @@ func RepoCreateProducts(data *model.RequestProduct, refresh_token string) (*[]mo
 	db := db.DbManager()
 
 	tx := db.Begin()
-	// defer func() {
-	// 	if r := recover(); r != nil {
-	// 		tx.Rollback()
-	// 	}
-	// }()
-
-	// if err := tx.Error; err != nil {
-	// 	return nil, err
-	// }
 
 	for _, v := range data.Datas {
 		fmt.Println("INI REPO", v)

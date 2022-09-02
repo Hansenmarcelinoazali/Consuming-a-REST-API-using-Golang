@@ -11,7 +11,6 @@ import (
 func ServiceSavetoDb(bodyInput *model.Product, refreshToken string) (*model.ResponseInputDataSingle, error) {
 	fmt.Println("====================", refreshToken)
 	data := model.Product{
-		// ID:    bodyInput.ID,
 		ProductsourceId: bodyInput.ProductsourceId,
 		Title:           bodyInput.Title,
 		Price:           bodyInput.Price,
@@ -43,32 +42,14 @@ func ServiceSavetoDb(bodyInput *model.Product, refreshToken string) (*model.Resp
 
 func ServiceInputDatas(bodys *model.RequestProduct, refreshToken string) (*model.ResponseInputDataDb, error) {
 
-	// inputId := model.InputUuid{
-	// 	ID: uuid.NewString(),
-	// }
 	res, err := repository.RepoCreateProducts(bodys, refreshToken)
 
-	// fmt.Println("+++++++++++++++++++++++++++++++++++++", bodys)
 	fmt.Println("service = = =", bodys)
 	if err != nil {
 		fmt.Println("ini error service", err)
 		return nil, err
 	}
 
-	// var respondata model.ResponseInputData
-	// for _, v := range bodys.Datas {
-
-	// 	respondata.DataStored = append(respondata.DataStored, model.Product{
-	// 		ID:              uuid.NewString(),
-	// 		ProductsourceId: v.ID,
-	// 		Title:           v.Title,
-	// 		Price:           v.Price,
-	// 		Stock:           v.Stock,
-	// 		CreatedAt:       time.Now(),
-	// 		ProductSource:   "https://dummyjson.com/products?limit=100&skip=0",
-	// 	})
-
-	// }
 
 	var modelResult model.ResponseInputDataDb
 
@@ -139,6 +120,5 @@ func ServiceGetDatafromDb(filter, limit, skip string) (*dbcon.ResponseDBGet, err
 			Total: len(responseData.Data),
 			Limit: conver,
 		},
-		// Filter: []dbcon.Filter{},
 	}, nil
 }
