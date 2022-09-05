@@ -4,6 +4,7 @@ import (
 	"external_api/db"
 	"external_api/dbcon"
 	"external_api/model"
+	"external_api/utils"
 	"fmt"
 	"strconv"
 	"time"
@@ -15,30 +16,13 @@ import (
 func RepoCreateProduct(data *model.Product, refresh_token string) error {
 	db := db.DbManager()
 	tx := db.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
-		}
-	}()
 
-	if err := tx.Error; err != nil {
+	err := utils.RollbackandCommitHandler(tx, data)
+	if err != nil {
 		return err
 	}
-	if err := tx.Create(&model.Product{
-		ID:              uuid.NewString(),
-		ProductsourceId: data.ProductsourceId, 
-		Title:           data.Title,
-		Price:           data.Price,
-		Stock:           data.Stock,
-		CreatedAt:       time.Now(),
-		CreatedBy:       data.CreatedBy,
-		ProductSource:   "https://dummyjson.com/products?limit=100&skip=0",
-		Rate:            data.Rate, //
-	}).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-	return tx.Commit().Error
+
+	return nil
 }
 
 func RepoCreateProducts(data *model.RequestProduct, refresh_token string) (*[]model.Products, error) {

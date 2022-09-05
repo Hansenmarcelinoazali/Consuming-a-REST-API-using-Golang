@@ -11,6 +11,9 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 func ServiceSavetoDb(bodyInput *model.Product, refreshToken string) (*model.ResponseInputDataSingle, error) {
@@ -22,6 +25,9 @@ func ServiceSavetoDb(bodyInput *model.Product, refreshToken string) (*model.Resp
 		Stock:           bodyInput.Stock,
 		Rate:            bodyInput.Rate,
 		CreatedBy:       refreshToken,
+		ID:              uuid.NewString(),
+		CreatedAt:       time.Now(),
+		ProductSource:   "https://dummyjson.com/products?limit=100&skip=0",
 	}
 
 	err := repository.RepoCreateProduct(&data, refreshToken)
