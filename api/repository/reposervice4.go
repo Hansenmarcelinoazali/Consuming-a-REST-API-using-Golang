@@ -52,6 +52,7 @@ func RepoCreateProducts(data *model.RequestProduct, refresh_token string) (*[]mo
 		v.CreatedAt = time.Now()
 		v.ID = uuid.NewString()
 		v.CreatedBy = refresh_token
+		v.ProductSource = "https://dummyjson.com/products?limit=100&skip=0"
 
 		if err := tx.Create(v).Error; err != nil {
 			fmt.Println("ini repo", err)
