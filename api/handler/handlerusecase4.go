@@ -19,7 +19,6 @@ func HandlerSaveToDB(c echo.Context) error {
 	if inputData.Datas == nil {
 		fmt.Println("XXXXX", &inputData.Data)
 
-
 		data, err := service.ServiceSavetoDb(&inputData.Data, refreshToken)
 		if err != nil {
 			return errors.New(" ")
@@ -49,7 +48,19 @@ func GetProductFromDb(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	
 
 	return c.JSON(http.StatusOK, result)
+}
+
+func GetUsers(c echo.Context) error {
+
+	urlparam := "https://dummyjson.com/users"
+
+	result, errorr := service.ServiceGetUsers(urlparam)
+	if errorr != nil {
+		return errorr
+
+	}
+	return c.JSON(http.StatusOK, result)
+
 }

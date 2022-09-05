@@ -24,6 +24,8 @@ func Init() *echo.Echo {
 
 	e.GET("/api/v1/products", handler.GetProductFromDb, middleware.MiddlewareIslogin) //usecase 4
 
+	e.GET("/api/v1/users", handler.GetUsers, middleware.MiddlewareIslogin)
+
 	e.DELETE("/api/v1/auth/logout", handler.HandlerLogout) //usecase 1
 
 	return e
