@@ -25,7 +25,7 @@ func RepoCreateProduct(data *model.Product, refresh_token string) error {
 	return nil
 }
 
-func RepoCreateProducts(data *model.RequestProduct, refresh_token string) (*[]model.Products, error) {
+func RepoCreateProducts(data *model.RequestProduct, refresh_token string) error {
 	db := db.DbManager()
 
 	tx := db.Begin()
@@ -41,12 +41,12 @@ func RepoCreateProducts(data *model.RequestProduct, refresh_token string) (*[]mo
 		if err := tx.Create(v).Error; err != nil {
 			fmt.Println("ini repo", err)
 			tx.Rollback()
-			return nil, err
+			return err
 		}
 
 	}
 
-	return &data.Datas, tx.Commit().Error
+	return tx.Commit().Error
 }
 
 func RepoGetDatafromDB(limit, skip string) (*[]dbcon.Products, error) {
