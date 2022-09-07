@@ -8,6 +8,6 @@ import (
 
 func Home(c echo.Context) error {
 
-	return c.String(http.StatusOK, "Hello Welcome to My Page")
+	return c.String(http.StatusOK, "Hello Welcome\n To \n My Page ")
 
 }

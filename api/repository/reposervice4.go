@@ -43,9 +43,7 @@ func RepoCreateProducts(data *model.RequestProduct, refresh_token string) error 
 			tx.Rollback()
 			return err
 		}
-
 	}
-
 	return tx.Commit().Error
 }
 
@@ -75,5 +73,4 @@ func RepoGetFilter(filter string) (*dbcon.Products, error) {
 	db.Where("title= ? OR id = ?", filter, filter).First(&products)
 
 	return &products, nil
-
 }
