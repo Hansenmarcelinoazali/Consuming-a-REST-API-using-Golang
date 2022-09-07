@@ -178,14 +178,14 @@ func ServiceGetUsers(url string) (string, error) {
 	json.Unmarshal(responseData, &ResponseObject)
 
 	//
-	for _, v := range ResponseObject.Users {
-		ResponseObject.Users = append(ResponseObject.Users, model.GetUsers{
-			ID:        v.ID,
-			FirstName: v.FirstName,
-			LastName:  v.LastName,
-			Age:       v.Age,
-		})
-	}
+	// for _, v := range ResponseObject.Users {
+	// 	ResponseObject.Users = append(ResponseObject.Users, model.GetUsers{
+	// 		ID:        v.ID,
+	// 		FirstName: v.FirstName,
+	// 		LastName:  v.LastName,
+	// 		Age:       v.Age,
+	// 	})
+	// }
 	marshal, _ := json.Marshal(ResponseObject)
 
 	return string(marshal), nil
