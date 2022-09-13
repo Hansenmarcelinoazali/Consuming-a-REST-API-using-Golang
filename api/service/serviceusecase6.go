@@ -16,8 +16,9 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("@@@@@@@@@@@@@", result)
 
-	resultStr := strconv.Itoa(0)
+	resultStr := strconv.Itoa(result)
 	rate0str := strconv.Itoa(int(rate0))
 	rate1Str := strconv.Itoa(int(rate1))
 	x := fmt.Sprint(rate0str, " sampai ", rate1Str)
@@ -38,7 +39,7 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 		return nil, err
 	}
 
-	result2Str := strconv.Itoa(0)
+	result2Str := strconv.Itoa(result2)
 	z := fmt.Sprint(rate2, " sampai ", rate3)
 
 	modelService2 := dbcon.Calculated{
@@ -57,7 +58,7 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 		return nil, err
 	}
 
-	result2to3 := strconv.Itoa(0)
+	result2to3 := strconv.Itoa(result2to3s)
 	p := fmt.Sprint(ratea, " sampai ", rateb)
 
 	modelService2to3 := dbcon.Calculated{
@@ -77,7 +78,7 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 		return nil, err
 	}
 
-	result3to4s := strconv.Itoa(0)
+	result3to4s := strconv.Itoa(result3to4a)
 	f := fmt.Sprint(ratea, " sampai ", rateb)
 
 	modelService3to4 := dbcon.Calculated{
@@ -94,7 +95,8 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	if err != nil {
 		return nil, err
 	}
-	resultm4 := strconv.Itoa(0)
+	fmt.Println("\n@@@@@@@@@@@@@", result3to4s)
+	resultm4 := strconv.Itoa(resultmorethan4)
 	c := fmt.Sprint(" lebih dari ", ratemorethan4)
 
 	modelServicemore4 := dbcon.Calculated{
@@ -105,97 +107,33 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 
 	fmt.Println(modelServicemore4, resultmorethan4)
 
-	// var xResult1 string
-	// var xValue1 string
+	var modelResponseRes dbcon.ResponseCalculated
 
-	// var xResult2 string
-	// var xValue2 string
+	modelResponseRes.Data = append(modelResponseRes.Data, dbcon.Calculated{
+		X:     modelService.X,
+		Value: modelService.Value,
+		Fill:  modelService.Fill,
+	})
+	modelResponseRes.Data = append(modelResponseRes.Data, dbcon.Calculated{
+		X:     modelService2.X,
+		Value: modelService2.Value,
+		Fill:  modelService2.Fill,
+	})
+	modelResponseRes.Data = append(modelResponseRes.Data, dbcon.Calculated{
+		X:     modelService2to3.X,
+		Value: modelService2to3.Value,
+		Fill:  modelService2to3.Fill,
+	})
+	modelResponseRes.Data = append(modelResponseRes.Data, dbcon.Calculated{
+		X:     modelService3to4.X,
+		Value: modelService3to4.Value,
+		Fill:  modelService3to4.Fill,
+	})
+	modelResponseRes.Data = append(modelResponseRes.Data, dbcon.Calculated{
+		X:     modelServicemore4.X,
+		Value: modelServicemore4.Value,
+		Fill:  modelServicemore4.Fill,
+	})
 
-	// var xResult3 string
-	// var xValue3 string
-
-	// var xResult4 string
-	// var xValue4 string
-
-	// var xResultmore string
-	// var xValuemore string
-	// var hold0 []string
-	// var hold1 []string
-	// var hold2 []string
-	// var hold3to4 []string
-
-	// var holdmore4 []string
-	// var count int
-
-	// var modelResult []dbcon.Calculated
-
-	// // var xValueint int
-
-	// for _, v := range result {
-	// 	if v.Rate < 1.00 {
-	// 		// result_count :=
-	// 		// xResult = "Rate 0,00 - 1,00"
-	// 		xValueConversion := strconv.FormatFloat(v.Rate, 'E', -1, 64)
-	// 		hold0 = append(hold0, xValueConversion)
-	// 		xValueint := len(hold0)
-	// 		xValue := strconv.Itoa(xValueint)
-	// 		modelResult = append(modelResult, dbcon.Calculated{
-	// 			X:     "Rate 0,00 - 1,00",
-	// 			Value: xValue,
-	// 			Fill:  "pink",
-	// 		})
-	// 	} else if v.Rate >= 1.01 && v.Rate <= 2.00 {
-	// 		// xResult = "Rate 1,01 - 2,00"
-	// 		xValueConversion := strconv.FormatFloat(v.Rate, 'E', -1, 64)
-	// 		hold1 = append(hold1, xValueConversion)
-	// 		xValueint := len(hold1)
-	// 		xValue := strconv.Itoa(xValueint)
-	// 		modelResult = append(modelResult, dbcon.Calculated{
-	// 			X:     "Rate 1,01 - 2,00",
-	// 			Value: xValue,
-	// 			Fill:  "Green",
-	// 		})
-	// 	} else if v.Rate >= 2.01 && v.Rate <= 3.00 {
-	// 		// xResult = "Rate 2,01 - 3,00"
-	// 		xValueConversion := strconv.FormatFloat(v.Rate, 'E', -1, 64)
-	// 		hold2 = append(hold2, xValueConversion)
-	// 		xValueint := len(hold2)
-	// 		xValue := strconv.Itoa(xValueint)
-	// 		modelResult = append(modelResult, dbcon.Calculated{
-	// 			X:     "Rate 2,01 - 3,00",
-	// 			Value: xValue,
-	// 			Fill:  "red",
-	// 		})
-	// 	} else if v.Rate >= 3.01 && v.Rate <=count := 0 4.00 {
-	// 		// xResult = "Rate 3,01 - 4,00"
-	// 		xValueConversion := strconv.FormatFloat(v.Rate, 'E', -1, 64)
-	// 		hold3to4 = append(hold3to4, xValueConversion)
-	// 		xValueint := len(hold3to4)
-	// 		xValue := strconv.Itoa(xValueint)
-	// 		fmt.Println("@@@@3-4", xValueint)
-	// 		modelResult = append(modelResult, dbcon.Calculated{
-	// 			X:     "Rate 3,01 - 4,00",
-	// 			Value: xValue,
-	// 			Fill:  "blue",
-	// 		})
-	// 		// fmt.Println("ini rate 4:", v.Rate)
-	// 	} else if v.Rate > 4.00 {
-	// 		// xResult = "Rate more than 4"
-	// 		xValueConversion := strconv.FormatFloat(v.Rate, 'E', -1, 64)
-	// 		holdmore4 = append(holdmore4, xValueConversion)
-	// 		count += 1
-	// 		total := strconv.Itoa(count)
-	// 		fmt.Println(total)
-	// 		// xValueint = len(holdmore4) //
-	// 		// xValue := strconv.Itoa(xValueint)
-	// 		// fmt.Println("@@@@3-more", xValue)
-	// 		// modelResult = append(modelResult, dbcon.Calculated{
-	// 		// 	X:     "More than 4",
-	// 		// 	Value: xValue,
-	// 		// 	Fill:  "black",
-	// 		// })
-	// 	}
-	// }
-
-	return nil, nil
+	return &dbcon.ResponseCalculated{modelResponseRes.Data}, nil
 }
