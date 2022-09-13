@@ -53,10 +53,10 @@ type ResponseGetUrl struct {
 }
 
 type Data struct {
-	ID    int    `json:"id"`
-	Title string `json:"title"`
-	Price int    `json:"price"`
-	Stock int    `json:"stock"`
+	ID         int    `json:"id"`
+	Title      string `json:"title"`
+	Price      int    `json:"price"`
+	Stock      int    `json:"stock"`
 }
 
 //usecase 4

@@ -105,7 +105,7 @@ func ServiceLogout(tokenAccess, refreshToken string) error {
 }
 
 //usecase 2
-func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
+func GetRedisData(url, limit, skip string) (interface{}, error) {
 
 	var res string
 	rdb := redis.NewRedisClient()
@@ -140,19 +140,27 @@ func GetRedisData(url, limit, skip string) (*model.ResponseGetUrl, error) {
 			Price: v.Price,
 			Stock: v.Stock,
 		})
+	}
 
+	var ResponseFromRedis = make(map[string]interface{})
+
+	for i, v := range resultGetRedis.Data {
+		// ResponseFromRedis["idGenerate"] =
+		conver := strconv.Itoa(i)
+		ResponseFromRedis[conver+"|"+conver] = v
 	}
 
 	//pagination
-	limits, _ := strconv.Atoi(limit)
-	skips, _ := strconv.Atoi(skip)
-	offset := skips + limits
+	// limits, _ := strconv.Atoi(limit)
+	// skips, _ := strconv.Atoi(skip)
+	// offset := skips + limits
 
-	response := resultGetRedis.Data[skips:offset]
-	resultGetRedis.Data = response
+	// response := resultGetRedis.Data[skips:offset]
+	// resultGetRedis.Data = response
 
 	//return sebagai hasil
-	return &resultGetRedis, nil
+
+	return ResponseFromRedis, nil
 }
 
 /* get url dan langsung set redis */

@@ -18,13 +18,15 @@ func Init() *echo.Echo {
 
 	e.GET("/api/v1/auth/health", handler.HandlerCheckHealth) //usecase 1
 
-	e.GET("/api/v1/external/dummyjson/products", handler.GetDataUrlorRedis, middleware.MiddlewareIslogin) //usecase 2
+	e.GET("/api/v1/external/dummyjson/products", handler.GetDataUrlorRedis, middleware.MiddlewareIslogin) //usecase 2/3/4
 
 	e.POST("/api/v1/products", handler.HandlerSaveToDB, middleware.MiddlewareIslogin) //usecase 4
 
 	e.GET("/api/v1/products", handler.GetProductFromDb, middleware.MiddlewareIslogin) //usecase 4
 
 	e.GET("/api/v1/users", handler.GetUsers, middleware.MiddlewareIslogin) //PR
+
+	e.GET("/api/v1/dashboard/products-rate",handler.HandlerUsecase6,middleware.MiddlewareIslogin) //usecase 6
 
 	e.DELETE("/api/v1/auth/logout", handler.HandlerLogout) //usecase 1
 
