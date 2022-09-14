@@ -19,14 +19,14 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	fmt.Println("@@@@@@@@@@@@@", result)
 
 	resultStr := strconv.Itoa(result)
-	rate0str := strconv.Itoa(int(rate0))
-	rate1Str := strconv.Itoa(int(rate1))
-	x := fmt.Sprint(rate0str, " sampai ", rate1Str)
+	// rate0str := strconv.Itoa(int(rate0))
+	// rate1Str := strconv.Itoa(int(rate1))
+	x := fmt.Sprint("Rate ", rate0, " - ", rate1)
 
 	modelService := dbcon.Calculated{
 		X:     x,
 		Value: resultStr,
-		Fill:  "",
+		Fill:  "Red",
 	}
 
 	fmt.Println(modelService, result)
@@ -40,12 +40,12 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	}
 
 	result2Str := strconv.Itoa(result2)
-	z := fmt.Sprint(rate2, " sampai ", rate3)
+	z := fmt.Sprint("Rate ", rate2, " - ", rate3)
 
 	modelService2 := dbcon.Calculated{
 		X:     z,
 		Value: result2Str,
-		Fill:  "",
+		Fill:  "Green",
 	}
 	fmt.Println(modelService2, result2)
 
@@ -59,12 +59,12 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	}
 
 	result2to3 := strconv.Itoa(result2to3s)
-	p := fmt.Sprint(ratea, " sampai ", rateb)
+	p := fmt.Sprint("Rate ", ratea, " - ", rateb)
 
 	modelService2to3 := dbcon.Calculated{
 		X:     p,
 		Value: result2to3,
-		Fill:  "",
+		Fill:  "Blue",
 	}
 
 	fmt.Println(modelService2to3, result2to3s)
@@ -79,12 +79,12 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	}
 
 	result3to4s := strconv.Itoa(result3to4a)
-	f := fmt.Sprint(ratea, " sampai ", rateb)
+	f := fmt.Sprint("Rate ", ratea, " - ", rateb)
 
 	modelService3to4 := dbcon.Calculated{
 		X:     f,
 		Value: result3to4s,
-		Fill:  "",
+		Fill:  "Yellow",
 	}
 
 	fmt.Println(modelService3to4, result3to4a)
@@ -97,12 +97,12 @@ func ServiceUsecase6() (*dbcon.ResponseCalculated, error) {
 	}
 	fmt.Println("\n@@@@@@@@@@@@@", result3to4s)
 	resultm4 := strconv.Itoa(resultmorethan4)
-	c := fmt.Sprint(" lebih dari ", ratemorethan4)
+	c := fmt.Sprint(" Rate lebih dari ", ratemorethan4)
 
 	modelServicemore4 := dbcon.Calculated{
 		X:     c,
 		Value: resultm4,
-		Fill:  "",
+		Fill:  "Black",
 	}
 
 	fmt.Println(modelServicemore4, resultmorethan4)

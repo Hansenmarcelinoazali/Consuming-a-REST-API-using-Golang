@@ -145,9 +145,9 @@ func GetRedisData(url, limit, skip string) (interface{}, error) {
 	var ResponseFromRedis = make(map[string]interface{})
 
 	for i, v := range resultGetRedis.Data {
-		// ResponseFromRedis["idGenerate"] =
+		idConv:= strconv.Itoa(v.ID)
 		conver := strconv.Itoa(i)
-		ResponseFromRedis[conver+"|"+conver] = v
+		ResponseFromRedis[conver+"|"+idConv] = v
 	}
 
 	//pagination
